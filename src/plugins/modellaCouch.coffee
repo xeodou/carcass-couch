@@ -93,9 +93,9 @@ module.exports = (Model) ->
      * Route remove to CouchDB.
     ###
     Model.remove = (done = ->) ->
-        @db().remove(@primary(), (err, res) ->
+        @db().remove(@primary(), (err, res) =>
             # TODO: handle conflict nicely.
-            return done(db.httpError(err)) if err
+            return done(@db.httpError(err)) if err
             done(null, res)
         )
         return @

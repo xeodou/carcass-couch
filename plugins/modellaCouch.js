@@ -130,12 +130,14 @@ module.exports = function(Model) {
     if (done == null) {
       done = function() {};
     }
-    this.db().remove(this.primary(), function(err, res) {
-      if (err) {
-        return done(db.httpError(err));
-      }
-      return done(null, res);
-    });
+    this.db().remove(this.primary(), (function(_this) {
+      return function(err, res) {
+        if (err) {
+          return done(_this.db.httpError(err));
+        }
+        return done(null, res);
+      };
+    })(this));
     return this;
   };
 
